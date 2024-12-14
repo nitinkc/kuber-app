@@ -2,17 +2,37 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Node.js with the required version (>=20.0.0)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'  # Ensure this matches the required Node.js version
+
+      # Install dependencies and build the project
+      - name: Install dependencies and build
+        run: |
+          npm install  # Ensures lock file is in sync with package.json
+          npm ci       # Runs a clean install of dependencies
+          npm run build # Builds the project
+
+      # Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KUBER_LAKSHMI }}
