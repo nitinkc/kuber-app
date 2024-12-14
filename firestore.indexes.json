@@ -1,0 +1,12 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Deposits",
+      "fields": [
+        { "fieldPath": "accountAlias", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
