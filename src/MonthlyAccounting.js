@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, addDoc, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { FaArrowLeft } from 'react-icons/fa';
 import { fetchAccountsFromDB, fetchRecentRecordsFromDB } from './firebaseUtils';
 import { useAccounts, useRecentRecords } from './customHooks';
+
 
 const MonthlyAccounting = () => {
     const [date, setDate] = useState('');
@@ -29,7 +30,7 @@ const MonthlyAccounting = () => {
         };
 
         fetchAccounts();
-    }, []);
+    }, [setAccounts]);
 
     // Fetch the top 10 recent records when accountAlias changes
     useEffect(() => {
@@ -43,7 +44,7 @@ const MonthlyAccounting = () => {
         };
 
         fetchAccounts();
-    }, []);
+    }, [setAccounts,setRecentRecords ]);
 
     useEffect(() => {
         const fetchRecentRecords = async () => {
@@ -56,7 +57,7 @@ const MonthlyAccounting = () => {
         };
 
         fetchRecentRecords();
-    }, [accountAlias]);
+    }, [accountAlias,setRecentRecords]);
 
     // Handle form submission
     const handleAddAccounting = async (e) => {
