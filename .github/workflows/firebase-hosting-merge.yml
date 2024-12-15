@@ -45,7 +45,7 @@ jobs:
           export GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.FIREBASE_SERVICE_ACCOUNT_KUBER_LAKSHMI }}
           firebase deploy --only firestore:indexes --project kuber-lakshmi
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }} # Optional, if required
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KUBER_LAKSHMI }} # Optional, if required
       # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
