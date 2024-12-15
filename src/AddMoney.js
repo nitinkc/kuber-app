@@ -13,7 +13,7 @@ import {
     limit,
     updateDoc,
 } from 'firebase/firestore';
-import { FaArrowLeft } from 'react-icons/fa';
+import BackButton from './components/BackButton';
 
 const AddMoney = () => {
     const [amount, setAmount] = useState('');
@@ -110,7 +110,7 @@ const AddMoney = () => {
 
     return (
         <div className="form-page">
-            {newFunction(navigate)}
+            <BackButton />
 
             <h2>Add Money to {accountAlias}</h2>
             <form onSubmit={handleAddFunds}>

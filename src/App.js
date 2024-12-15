@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Login';
-import Dashboard from './Dashboard';
+import Dashboard from './pages/Dashboard';
 import AddAccount from './AddAccount';
 import MonthlyAccounting from './MonthlyAccounting'; // Import MonthlyAccounting
 import { auth } from './firebase';

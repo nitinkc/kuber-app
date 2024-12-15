@@ -1,12 +1,12 @@
 import React from "react";
-import { auth, signOut } from "./firebase";
 import { FaSignOutAlt } from 'react-icons/fa';
-import DashboardNav from './components/DashboardNav';
+import DashboardNav from '../components/DashboardNav';
+import {logoutUser} from "../services/authService";
 
 
 const Dashboard = ({ user, setUser }) => {
   const handleLogout = async () => {
-    await signOut(auth);
+    await logoutUser();
     setUser(null); // Set user state to null (logged out)
   };
 
