@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "./firebase";
 import { collection, doc, setDoc } from "firebase/firestore"; // Import necessary Firestore methods
-import { FaArrowLeft } from "react-icons/fa";
 import FormInput from "./components/FormInput";
 import FormSelect from "./components/FormSelect";
 import BackButton from './components/BackButton';
