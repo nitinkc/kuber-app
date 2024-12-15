@@ -6,6 +6,14 @@
         { "fieldPath": "accountAlias", "order": "ASCENDING" },
         { "fieldPath": "date", "order": "DESCENDING" }
       ]
+    },{
+      "collectionGroup": "MonthlyAccounting",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "accountAlias", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" },
+        { "fieldPath": "__name__", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []
