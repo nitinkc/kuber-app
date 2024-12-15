@@ -12,10 +12,12 @@ body {
   color: #333;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start; /* Align content from the top */
   padding: 20px;
+  min-height: 100vh; /* Allows scrolling */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
+
 
 /* Container to center the form */
 form {
