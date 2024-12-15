@@ -38,14 +38,6 @@ jobs:
           npm ci       # Runs a clean install of dependencies
           npm run build # Builds the project
 
-      # Conditionally deploy Firestore Indexes
-      - name: Deploy Firestore Indexes
-        run: |
-          npm install -g firebase-tools
-          export GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.FIREBASE_SERVICE_ACCOUNT_KUBER_LAKSHMI }}
-          firebase deploy --only firestore:indexes --project kuber-lakshmi
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KUBER_LAKSHMI }} # Optional, if required
       # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
