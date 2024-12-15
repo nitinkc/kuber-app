@@ -23,8 +23,6 @@ const AddMoney = () => {
     const [currentBalance, setCurrentBalance] = useState(null);
     const [recentDeposits, setRecentDeposits] = useState([]);
 
-    const navigate = useNavigate();
-
     // Fetch accounts for the dropdown
     useEffect(() => {
         const fetchAccounts = async () => {
