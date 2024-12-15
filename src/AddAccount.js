@@ -5,6 +5,7 @@ import { collection, doc, setDoc } from "firebase/firestore"; // Import necessar
 import { FaArrowLeft } from "react-icons/fa";
 import FormInput from "./components/FormInput";
 import FormSelect from "./components/FormSelect";
+import BackButton from './components/BackButton';
 
 function AddAccount() {
   const [accountNumber, setAccountNumber] = useState("");
@@ -38,9 +39,8 @@ function AddAccount() {
 
   return (
     <div className="form-page">
-      <button onClick={() => navigate("/")} className="icon-button back">
-        <FaArrowLeft size={20} /> Back to Dashboard
-      </button>
+      <BackButton />
+
       <h2>Add Account</h2>
       <form
         onSubmit={(e) => {
