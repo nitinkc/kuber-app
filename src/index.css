@@ -70,11 +70,6 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* Space between form elements */
-div {
-  margin-bottom: 15px;
-}
-
 /* Style for labels */
 label {
   font-size: 16px;
@@ -214,6 +209,86 @@ tbody tr:hover {
   color: red;
 }
 
+.icon-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+  gap: 5px;
+}
+
+.icon-link span {
+  font-size: 14px;
+  color: #333;
+}
+
+.icon-link:hover span {
+  color: #007bff; /* Change text color on hover */
+}
+
+.icon-link:hover svg {
+  transform: scale(1.1); /* Slight icon enlargement on hover */
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* General typography and spacing improvements */
+h2, label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Dashboard layout */
+.dashboard {
+  text-align: center;
+  padding: 20px;
+}
+
+.dashboard-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.icon-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+  gap: 5px;
+}
+
+/* Button styling */
+.icon-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.icon-button:hover {
+  background-color: #0056b3;
+}
 
 /* Responsive Design: Mobile first */
 @media (max-width: 600px) {
