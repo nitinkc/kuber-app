@@ -110,9 +110,7 @@ const AddMoney = () => {
 
     return (
         <div className="form-page">
-            <button onClick={() => navigate('/')} className="icon-button back">
-                <FaArrowLeft size={20} /> Back to Dashboard
-            </button>
+            {newFunction(navigate)}
 
             <h2>Add Money to {accountAlias}</h2>
             <form onSubmit={handleAddFunds}>
