@@ -1,18 +1,23 @@
 import React from 'react';
 
-const FormInput = ({ label, type, value, onChange, required, min }) => {
+const FormInput = ({ label, type, value, onChange, required, min, max, step }) => {
+    const inputProps = {
+        type,
+        value,
+        onChange,
+        required,
+        min,
+        max,
+        step,
+    };
+
     return (
         <div>
             <label>{label}</label>
-            <input
-                type={type}
-                value={value}
-                onChange={onChange}
-                required={required}
-                min={min}
-            />
+            <input {...inputProps} />
         </div>
     );
 };
+
 
 export default FormInput;

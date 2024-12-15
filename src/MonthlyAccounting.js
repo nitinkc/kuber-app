@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { FaArrowLeft } from 'react-icons/fa';
+import { collection, addDoc } from 'firebase/firestore';
 import { fetchAccountsFromDB, fetchRecentRecordsFromDB } from './firebaseUtils';
 import { useAccounts, useRecentRecords } from './customHooks';
-
+import BackButton from './components/BackButton';
+import FormInput from './components/FormInput';
 
 const MonthlyAccounting = () => {
     const [date, setDate] = useState('');
@@ -15,49 +14,28 @@ const MonthlyAccounting = () => {
     const [setRecentRecords] = useState([]);
     const accounts = useAccounts();
     const recentRecords = useRecentRecords(accountAlias);
-    const navigate = useNavigate();
+    // Define today variable to disable future dates
+    const today = new Date().toISOString().split('T')[0]; // Gets today's date in YYYY-MM-DD format
 
-    // Fetch accounts for the dropdown
+
+    // Fetch accounts and recent records on mount or accountAlias change
     useEffect(() => {
-        const fetchAccounts = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, 'Accounts'));
-                const accountsData = querySnapshot.docs.map((doc) => doc.data());
-                setAccounts(accountsData);
-            } catch (error) {
-                console.error('Error fetching accounts:', error);
-            }
-        };
-
-        fetchAccounts();
-    }, [setAccounts]);
-
-    // Fetch the top 10 recent records when accountAlias changes
-    useEffect(() => {
-        const fetchAccounts = async () => {
+        const fetchData = async () => {
             try {
                 const accountsData = await fetchAccountsFromDB(db);
                 setAccounts(accountsData);
+
+                if (accountAlias) {
+                    const recordsData = await fetchRecentRecordsFromDB(db, accountAlias);
+                    setRecentRecords(recordsData);
+                }
             } catch (error) {
-                console.error('Error fetching accounts:', error);
+                console.error('Error fetching data:', error);
             }
         };
 
-        fetchAccounts();
-    }, [setAccounts,setRecentRecords ]);
-
-    useEffect(() => {
-        const fetchRecentRecords = async () => {
-            try {
-                const recordsData = await fetchRecentRecordsFromDB(db, accountAlias);
-                setRecentRecords(recordsData);
-            } catch (error) {
-                console.error('Error fetching recent records:', error);
-            }
-        };
-
-        fetchRecentRecords();
-    }, [accountAlias,setRecentRecords]);
+        fetchData();
+    }, [accountAlias, setAccounts, setRecentRecords]);
 
     // Handle form submission
     const handleAddAccounting = async (e) => {
@@ -81,50 +59,47 @@ const MonthlyAccounting = () => {
 
     return (
         <div className="form-page">
-            <button onClick={() => navigate('/')} className="icon-button back">
-                <FaArrowLeft size={20} /> Back to Dashboard
-            </button>
+            <BackButton />
 
             <h2>Monthly Accounting for {accountAlias}</h2>
             <form onSubmit={handleAddAccounting}>
-                <div>
-                    <label>Account Alias:</label>
-                    <select
-                        value={accountAlias}
-                        onChange={(e) => setAccountAlias(e.target.value)}
-                        required
-                    >
-                        <option value="">Select Account</option>
-                        {accounts.map((account, index) => (
-                            <option key={index} value={account.alias}>
-                                {account.alias}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+            <div>
+                <label>Account Alias:</label>
+                <select
+                    value={accountAlias}
+                    onChange={(e) => setAccountAlias(e.target.value)}
+                    required
+                >
+                    <option value="">Select Account</option>
+                    {accounts.map((account, index) => (
+                        <option key={index} value={account.alias}>
+                            {account.alias}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-                <div>
-                    <label>Date:</label>
-                    <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        required
-                    />
-                </div>
+            <FormInput
+                label="Date"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+                max={today} // Disable future dates
+            />
 
-                <div>
-                    <label>Profit/Loss Amount:</label>
-                    <input
-                        type="number"
-                        value={profitLossAmount}
-                        onChange={(e) => setProfitLossAmount(e.target.value)}
-                        required
-                    />
-                </div>
+            <FormInput
+                label="Profit/Loss Amount"
+                type="number"
+                value={profitLossAmount}
+                onChange={(e) => setProfitLossAmount(e.target.value)}
+                required
+                min="0"
+                step="0.01"
+            />
 
-                <button type="submit">Add Profit/Loss</button>
-            </form>
+            <button type="submit">Add Profit/Loss</button>
+        </form>
 
             <h3>Recent Records for {accountAlias}</h3>
             {recentRecords.length ? (
