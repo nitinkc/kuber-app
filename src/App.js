@@ -13,8 +13,6 @@ const App = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-        console.log("API Key:", process.env.REACT_APP_API_KEY);
-
         if (user) {
         setUser(user);
       } else {
@@ -36,7 +34,7 @@ const App = () => {
           {/* Private routes: Require user to be logged in */}
           {user && (
               <>
-                  <Route path="/" element={<Dashboard user={user} setUser={setUser} />} />
+                <Route path="/" element={<Dashboard user={user} setUser={setUser} />} />
                 <Route path="/add-account" element={<AddAccount user={user} />} />
                 <Route path="/monthly-accounting/" element={<MonthlyAccounting />} />
                 <Route path="/withdraw" element={<Withdraw />} />

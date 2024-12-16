@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { db } from './firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { fetchAccountsFromDB, fetchRecentRecordsFromDB } from './firebaseUtils';
 import { useAccounts, useRecentRecords } from './customHooks';
 import BackButton from './components/BackButton';
 import FormInput from './components/FormInput';
@@ -14,16 +13,9 @@ const MonthlyAccounting = () => {
     // Use hooks for accounts and recent records
     const { accounts, loading: accountsLoading, error: accountsError } = useAccounts();
     const { recentRecords, loading: recordsLoading, error: recordsError } = useRecentRecords(accountAlias);
-    //const accounts = useAccounts();
-   // const recentRecords = useRecentRecords(accountAlias);
-
-    const [setAccounts] = useState([]);
-    const [setRecentRecords] = useState([]);
-
-    
+   
     // Define today variable to disable future dates
     const today = new Date().toISOString().split('T')[0]; // Gets today's date in YYYY-MM-DD format
-
 
     // Handle form submission
     const handleAddAccounting = async (e) => {
